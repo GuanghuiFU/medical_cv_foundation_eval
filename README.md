@@ -29,22 +29,22 @@ The figure below shows our process of using ITK-SNAP for box annotation. Our pur
   * **Support Set Configuration:** Requires setting up a support set for UniverSeg.
   * **Slice-by-Slice Processing:** Applies the UniverSeg model to each 2D slice in the axial plane.
   * **Reconstruction and Evaluation:** Collects the 2D predictions, resizes them back to their original resolution, and reconstructs them into a 3D volume for performance evaluation.
+* `brats_box_prompt_manual_ground_truth.xlsx`: The position and size of the manual annotate 3D-box prompt. Also we provide the prompt generate from ground-truth.
+
+## Related codes
+
+1. SAM [1]: https://github.com/bingogome/samm
+2. MedSAM [5]: https://github.com/YichiZhang98/SAM4MIS
+3. UniverSeg [2]: https://github.com/JJGO/UniverSeg
+4. nnUNet [4]: https://github.com/MIC-DKFZ/nnUNet
 
 ## References
 
-1. Alexander Kirillov, Eric Mintun, Nikhila Ravi, Hanzi Mao, Chloe Rolland, Laura Gustafson,
-   Tete Xiao, Spencer Whitehead, Alexander C Berg, Wan-Yen Lo, et al. Segment anything.
-   In Proc. ICCV 2023, pages 4015–4026, 2023
-2. Victor Ion Butoi, Jose Javier Gonzalez Ortiz, Tianyu Ma, Mert R Sabuncu, John Guttag,
-   and Adrian V Dalca. UniverSeg: Universal medical image segmentation. In Proc. ICCV
-   2023, pages 21438–21451, 2023.
-3. Michela Antonelli, Annika Reinke, Spyridon Bakas, Keyvan Farahani, Annette Kopp-
-   Schneider, Bennett A Landman, Geert Litjens, Bjoern Menze, Olaf Ronneberger,
-   Ronald M Summers, et al. The medical segmentation decathlon. Nature communications,
-   13(1):4128, 2022.
-4. Fabian Isensee, Paul F Jaeger, Simon AA Kohl, Jens Petersen, and Klaus H Maier-Hein.
-   nnU-Net: a self-configuring method for deep learning-based biomedical image segmenta-
-   tion. Nature methods, 18(2):203–211, 2021.
+1. Alexander Kirillov, Eric Mintun, Nikhila Ravi, Hanzi Mao, Chloe Rolland, Laura Gustafson, Tete Xiao, Spencer Whitehead, Alexander C Berg, Wan-Yen Lo, et al. Segment anything. In Proc. ICCV 2023, pages 4015–4026, 2023
+2. Victor Ion Butoi, Jose Javier Gonzalez Ortiz, Tianyu Ma, Mert R Sabuncu, John Guttag, and Adrian V Dalca. UniverSeg: Universal medical image segmentation. In Proc. ICCV 2023, pages 21438–21451, 2023.
+3. Michela Antonelli, Annika Reinke, Spyridon Bakas, Keyvan Farahani, Annette Kopp-Schneider, Bennett A Landman, Geert Litjens, Bjoern Menze, Olaf Ronneberger, Ronald M Summers, et al. The medical segmentation decathlon. Nature communications, 13(1):4128, 2022.
+4. Fabian Isensee, Paul F Jaeger, Simon AA Kohl, Jens Petersen, and Klaus H Maier-Hein. nnU-Net: a self-configuring method for deep learning-based biomedical image segmentation. Nature methods, 18(2):203–211, 2021.
+5. Ma, Jun, and Bo Wang. "Segment anything in medical images." *arXiv preprint arXiv:2304.12306* (2023).
 
 ## Citing us
 
