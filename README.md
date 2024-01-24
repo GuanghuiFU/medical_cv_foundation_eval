@@ -13,6 +13,7 @@ This code repository offers an implementation of our 3D supervised learning appr
 ## Manual Box Prompt annotation
 
 The figure below shows our process of using ITK-SNAP for box annotation. Our purpose in using this tool is to maintain consistency with physician annotations.
+We also provide screen recording videos during annotation: https://owncloud.icm-institute.org/index.php/s/9LWatZ2xDB9SvE0
 
 ![manual_box](https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/manual_box_prompt.png)
 
