@@ -49,13 +49,13 @@ We also provide screen recording videos during annotation: https://owncloud.icm-
 
 ## Citing us
 
-* Fu, Guanghui, Rosana El Jurdi, Lydia Chougar, Didier Dormont, Romain Valabregue, Stéphane Lehéricy, and Olivier Colliot. "Introducing Soft Topology Constraints in Deep Learning-based Segmentation using Projected Pooling Loss." In *SPIE Medical Imaging 2023*. 2023.
+* Guanghui Fu, Lucia Nichelli, Dario Herran, Romain Valabregue, Agusti Alentorn, Khê Hoang-Xuan, Caroline Houillier, Didier Dormont, Stéphane Lehéricy, Olivier Colliot."Comparative analysis of supervised learning and computer vision foundation models for segmenting post-contrast T1-weighted primary brain lymphoma. In *MIDL 2024*. 2024.
 
 ```
-@inproceedings{fu2023introducing,
-  title={Introducing Soft Topology Constraints in Deep Learning-based Segmentation using Projected Pooling Loss},
-  author={Fu, Guanghui and El Jurdi, Rosana and Chougar, Lydia and Dormont, Didier and Valabregue, Romain and Leh{\'e}ricy, St{\'e}phane and Colliot, Olivier},
-  booktitle={SPIE Medical Imaging 2023},
-  year={2023}
+@inproceedings{fu2024comparative,
+  title={Comparative analysis of supervised learning and computer vision foundation models for segmenting post-contrast T1-weighted primary brain lymphoma},
+  author={Fu, Guanghui and Nichelli, Lucia and Herran, Dario and Valabregue, Romain and Alentorn, Agusti and Hoang-Xuan, Khê and Houillier, Caroline and Dormont, Didier and Leh{\'e}ricy, St{\'e}phane and Colliot, Olivier},
+  booktitle={Proc.MIDL 2024},
+  year={2024}
 }
 ```
