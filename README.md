@@ -30,7 +30,10 @@ We also provide screen recording videos during annotation: https://owncloud.icm-
   * **Support Set Configuration:** Requires setting up a support set for UniverSeg.
   * **Slice-by-Slice Processing:** Applies the UniverSeg model to each 2D slice in the axial plane.
   * **Reconstruction and Evaluation:** Collects the 2D predictions, resizes them back to their original resolution, and reconstructs them into a 3D volume for performance evaluation.
-* `brats_box_prompt_manual_ground_truth.xlsx`: The position and size of the manual annotate 3D-box prompt. Also we provide the prompt generate from ground-truth.
+* `brats_prompt`: The position and size of the box prompt. Also we provide the prompt generate from ground-truth.
+  * `brats_3d_box_prompt_manual.csv`: The manual annotate box prompt in 3D level
+  * `brats_3d_box_prompt_label2box.csv`: The box prompt generate from ground truth in 3D level
+  * `brats_2d_box_prompt_label2box`: The box prompt generate from ground truth in 2D level
 
 ## Related codes
 
