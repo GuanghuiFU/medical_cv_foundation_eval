@@ -33,7 +33,7 @@ We also provide screen recording videos during annotation: https://owncloud.icm-
 * `brats_prompt`: The position and size of the box prompt. Also we provide the prompt generate from ground-truth.
   * `brats_3d_box_prompt_manual.csv`: The manual annotate box prompt in 3D level
   * `brats_3d_box_prompt_label2box.csv`: The box prompt generate from ground truth in 3D level
-  * `brats_2d_box_prompt_label2box`: The box prompt generate from ground truth in 2D level
+  * `brats_2d_box_prompt_label2box.csv`: The box prompt generate from ground truth in 2D level
 
 ## Related codes
 
