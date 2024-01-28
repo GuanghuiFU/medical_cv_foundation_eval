@@ -1,4 +1,4 @@
-# Comparative analysis of supervised learning and computer vision foundation models for segmenting post-contrast T1-weighted primary brain lymphoma
+# Comparing foundation models and nnU-Net for segmentation of primary brain lymphoma on clinical routine post-contrast T1-weighted MRI
 
 * Conference version:
 
