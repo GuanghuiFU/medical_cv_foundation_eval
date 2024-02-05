@@ -4,8 +4,8 @@
 This repository contains material associated to this [paper](#Citation).
 
 It contains:
-- link to trained models for segmentation of lymphoma from post-constrast T1-weighted MRI
-- link to trained models for segmentation of enhancing tumor in MSD-BraTS datasets
+- link to trained models for segmentation of lymphoma from post-constrast T1-weighted MRI ([link](https://owncloud.icm-institute.org/index.php/s/2dPGj9hu4Jvk6Qh), password: ARAMIS)
+- link to trained models for segmentation of enhancing tumor in MSD-BraTS datasets ([link](https://owncloud.icm-institute.org/index.php/s/2dPGj9hu4Jvk6Qh), password: ARAMIS)
 - code and material for reproducing the experiments on MSD-BraTS
 
 If you use this material, we would appreciate if you could cite the following reference.
@@ -27,8 +27,8 @@ We provide the following contents for reproduction of MSD-BraTS experiments:
 - manual box prompts for SAM and MedSAM models ([link](#Manual-box-prompt-annotation))
 - support sets for UniverSeg experiments ([link](#Support-sets-for-Universeg))
 - code to train nnU-Net models ([link](#Code-to-train-nnU-net))
-- code for inference of all models ([SAM](#Inference-for-SAM-models), [MedSAM](#Inference-for-MedSAM), [UniverSeg](#Inference-for-UniverSeg), [nnU-Net](#Inference-for-nnU-Net))
-- code for computation of metrics and statistical analysis ([link](#Computation-of-metrics-and-statistical-analysis))
+- code for inference of all models ([SAM](#Inference-for-SAM-models), [MedSAM](#Inference-for-MedSAM), [UniverSeg](#Inference-for-UniverSeg), [nnU-Net](#))
+- code for computation of metrics and statistical analysis ([link](#))
 
 ## Manual box prompt annotation
 
@@ -65,9 +65,9 @@ The code to build the support sets:
 
 Training nnU-Net only requires the following commands: 
 
-* **Plan and preprocessing**: nnUNetv2_plan_and_preprocess -d <ID> --verify_dataset_integrity
-* **3D model training**: nnUNetv2_train <ID> 3d_fullres <cross validation fold id>
-* **2D model training**: nnUNetv2_train <ID> 2d <cross validation fold id>
+* **Plan and preprocessing**: nnUNetv2_plan_and_preprocess -d DATASET_ID --verify_dataset_integrity
+* **3D model training**: nnUNetv2_train DATASET_ID 3d_fullres FOLD
+* **2D model training**: nnUNetv2_train DATASET_ID 2d FOLD
 
 ## Inference for SAM and MedSAM models
 
@@ -88,8 +88,8 @@ Training nnU-Net only requires the following commands:
 
 Inferencing nnU-Net only requires the following commands: 
 
-* **3D inference**: nnUNetv2_predict -d <ID> -i <input path> -o <output path> -f  0 1 2 3 4 -tr nnUNetTrainer -c 3d_fullres -p nnUNetPlans
-* **2D inference**: nnUNetv2_predict -d <ID> -i <input path> -o <output path> -f  0 1 2 3 4 -tr nnUNetTrainer -c 2d -p nnUNetPlans
+* **3D inference**: nnUNetv2_predict -d DATASET_ID -i INPUT_FOLDER -o OUTPUT_FOLDER -f  0 1 2 3 4 -tr nnUNetTrainer -c 3d_fullres -p nnUNetPlans
+* **2D inference**: nnUNetv2_predict -d DATASET_ID -i INPUT_FOLDER -o OUTPUT_FOLDER -f  0 1 2 3 4 -tr nnUNetTrainer -c 2d -p nnUNetPlans
 
 ## Computation of metrics and statistical analysis
 
@@ -111,6 +111,3 @@ Inferencing nnU-Net only requires the following commands:
 3. Michela Antonelli, Annika Reinke, Spyridon Bakas, Keyvan Farahani, Annette Kopp-Schneider, Bennett A Landman, Geert Litjens, Bjoern Menze, Olaf Ronneberger, Ronald M Summers, et al. The medical segmentation decathlon. Nature communications, 13(1):4128, 2022.
 4. Fabian Isensee, Paul F Jaeger, Simon AA Kohl, Jens Petersen, and Klaus H Maier-Hein. nnU-Net: a self-configuring method for deep learning-based biomedical image segmentation. Nature methods, 18(2):203–211, 2021.
 5. Ma, Jun, et al. "Segment anything in medical images." *Nature Communications* 15.1 (2024): 654.
-
-
-
