@@ -1,7 +1,5 @@
 # Comparing foundation models and nnU-Net for segmentation of primary brain lymphoma on clinical routine post-contrast T1-weighted MRI
 
-* Conference version:
-
 ## Introduction
 
 This repository presents our work on evaluating supervised learning and foundation models in medical imaging, specifically using T1-weighted brain MRI data. Our approach involves training supervised learning models on public datasets for glioma and comparing their performance against foundation models. The highlight of our study is the utilization of 3D supervised learning models, which have demonstrated superior performance in handling tasks with high variability in clinical data.
@@ -9,6 +7,19 @@ This repository presents our work on evaluating supervised learning and foundati
 Key findings from our research indicate that while foundation models show potential, they currently do not match the effectiveness of 3D supervised learning models in complex medical imaging tasks. For example, our 3D model outperformed the best foundation model by approximately 20% in Dice score for the clinical dataset and showed a 10% improvement on public glioma datasets.
 
 This code repository offers an implementation of our 3D supervised learning approach, with example code based on the BRATS brain tumor dataset. While our primary dataset involving lymphoma is not included due to privacy considerations, the methods and findings are broadly applicable to similar medical imaging tasks. 
+
+## Citing us
+* Conference version: * Guanghui Fu, Lucia Nichelli, Dario Herran, Romain Valabregue, Agusti Alentorn, Khê Hoang-Xuan, Caroline Houillier, Didier Dormont, Stéphane Lehéricy, Olivier Colliot." Comparing foundation models and nnU-Net for segmentation of primary brain lymphoma on clinical routine post-contrast T1-weighted MRI. Submitted to *MIDL 2024*. 2024.
+
+```
+@inproceedings{fu2024comparative,
+  title={Comparative analysis of supervised learning and computer vision foundation models for segmenting post-contrast T1-weighted primary brain lymphoma},
+  author={Fu, Guanghui and Nichelli, Lucia and Herran, Dario and Valabregue, Romain and Alentorn, Agusti and Hoang-Xuan, Khê and Houillier, Caroline and Dormont, Didier and Leh{\'e}ricy, St{\'e}phane and Colliot, Olivier},
+  booktitle={Proc.MIDL 2024},
+  year={2024}
+}
+```
+
 
 ## Manual Box Prompt annotation
 
@@ -50,15 +61,6 @@ We also provide screen recording videos during annotation: https://owncloud.icm-
 4. Fabian Isensee, Paul F Jaeger, Simon AA Kohl, Jens Petersen, and Klaus H Maier-Hein. nnU-Net: a self-configuring method for deep learning-based biomedical image segmentation. Nature methods, 18(2):203–211, 2021.
 5. Ma, Jun, and Bo Wang. "Segment anything in medical images." *arXiv preprint arXiv:2304.12306* (2023).
 
-## Citing us
 
-* Guanghui Fu, Lucia Nichelli, Dario Herran, Romain Valabregue, Agusti Alentorn, Khê Hoang-Xuan, Caroline Houillier, Didier Dormont, Stéphane Lehéricy, Olivier Colliot."Comparative analysis of supervised learning and computer vision foundation models for segmenting post-contrast T1-weighted primary brain lymphoma. In *MIDL 2024*. 2024.
 
-```
-@inproceedings{fu2024comparative,
-  title={Comparative analysis of supervised learning and computer vision foundation models for segmenting post-contrast T1-weighted primary brain lymphoma},
-  author={Fu, Guanghui and Nichelli, Lucia and Herran, Dario and Valabregue, Romain and Alentorn, Agusti and Hoang-Xuan, Khê and Houillier, Caroline and Dormont, Didier and Leh{\'e}ricy, St{\'e}phane and Colliot, Olivier},
-  booktitle={Proc.MIDL 2024},
-  year={2024}
-}
-```
+
