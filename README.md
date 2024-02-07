@@ -127,7 +127,7 @@ nnUNetv2_train DATASET_ID 2d FOLD
 
 ## Inference for nnU-Net
 
-Inferencing nnU-Net only requires the following commands: 
+Inferencing nnU-Net only requires the following commands. `DATASET_ID`, `INPUT_FOLDER` and `OUTPUT_FOLDER` are defined in the same way as [nnU-net official codes](<https://github.com/MIC-DKFZ/nnUNet>). See the [official code](<https://github.com/MIC-DKFZ/nnUNet>) for details.
 
 * **3D inference**: 
 ```console
