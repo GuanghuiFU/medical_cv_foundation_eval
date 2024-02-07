@@ -99,7 +99,7 @@ The code to build the support sets:
 
 ## Code to train nnU-net
 
-Training nnU-Net only requires the following commands: 
+Training nnU-Net only requires the following commands. `DATASET_ID` and `FOLD` are defined in the same way as [nnU-net official codes](<https://github.com/MIC-DKFZ/nnUNet>). See the [official code](<https://github.com/MIC-DKFZ/nnUNet>) for details.
 
 * **Plan and preprocessing**:
 ```console
