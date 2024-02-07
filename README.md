@@ -36,7 +36,7 @@ We provide the following contents for reproduction of MSD-BraTS experiments:
 * **Dataset download (from medical segmentation decathlon website):** https://drive.google.com/file/d/1A2IU8Sgea1h3fYLpYtFb2v7NYdMjvEhU/view?usp=drive_link
 
 * **Model checkpoints download**:
-Please download SAM and MedSam models from the following links:
+Please download SAM and MedSam models from the following links, and put these checkpoints to `sam_experiment/checkpoints` path.
     1. **SAM, vit-b:** https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth
     2. **SAM, vit-h:** https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth
     3. **SAM, vit-l:** https://dl.fbaipublicfiles.com/segment_anything/sam_vit_l_0b3195.pth
@@ -50,7 +50,7 @@ The figure below shows our process of using ITK-SNAP for drawing box prompts.
 
 We also provide screen recording videos during annotation: https://owncloud.icm-institute.org/index.php/s/9LWatZ2xDB9SvE0
 
-![manual_box](https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/manual_box_prompt.png)
+![manual_box](manual_box_prompt.png)
 
 In order to reproduce the experiments, you need the coordinates of the box prompts which are given here:
 * `brats_3d_box_prompt_manual.csv`: The manual annotate box prompt in 3D level

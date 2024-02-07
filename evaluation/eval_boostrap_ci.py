@@ -1,5 +1,4 @@
 import os
-import lib.utils as utils
 import skimage.measure
 import numpy as np
 import nibabel as nib
@@ -137,7 +136,7 @@ def pred_eval(pred_base_path, label_base_path, evaluation_metrics, evaluation_fu
     evaluation_metrics_result_list = []
     for pred_path in pred_path_list:
         filename = os.path.basename(pred_path)
-        label_path = f'{label_base_path}/{filename}'
+        label_path = f"{label_base_path}/{filename.replace('_0000','')}"
         pred_np, _ = path2np(pred_path)
         label_np, _ = path2np(label_path)
         try:
@@ -151,17 +150,24 @@ def pred_eval(pred_base_path, label_base_path, evaluation_metrics, evaluation_fu
         evaluation_metrics_result_list.append(evaluation_matrix_result)
     evaluation_dicts2csv(filename_list, evaluation_metrics, evaluation_metrics_result_list, csv_file_path)
     evaluation_metrics_result_avg = average_eval_bci(evaluation_metrics_result_list)
-    print('Average:', evaluation_metrics_result_avg)
+    return evaluation_metrics_result_avg
 
 
 def main():
-    pred_base_path = 'your/prediction/path'
-    label_base_path = 'your/label/path'
+    pred_base_path = 'your/base/path/FM_experiments/experiment_sam/3d_manual/sam_vit_b_01ec64'
+    label_base_path = 'your/base/path/FM_experiments/labelsTs'
     evaluation_metrics = ['dice', 'hausdorff_95', 'topo_3d_err']
     evaluation_funcs = [dice_score, hausdorff_distance_95, evaluate_connected_component_3d]
     csv_file_path = f'{os.path.dirname(pred_base_path)}/eval_{os.path.basename(pred_base_path)}.csv'
+    txt_file_path = f'{os.path.dirname(pred_base_path)}/eval_{os.path.basename(pred_base_path)}.txt'
+    print('*** Evaluating')
+    evaluation_metrics_result_avg_ci = pred_eval(pred_base_path, label_base_path, evaluation_metrics, evaluation_funcs, csv_file_path)
     print('Saved to:', csv_file_path)
-    pred_eval(pred_base_path, label_base_path, evaluation_metrics, evaluation_funcs, csv_file_path)
+    print(f'Performance metrics (results presented as mean with 95% bootstrap confidence interval) of {os.path.basename(pred_base_path)} are:\n{evaluation_metrics_result_avg_ci}')
+    with open(txt_file_path, 'w') as txt_file:
+        txt_file.write(f'Prediction path: {pred_base_path}\n')
+        txt_file.write(f'{evaluation_metrics_result_avg_ci}')
+    print(f'Results also saved to: {txt_file_path}')
 
 
 if __name__ == '__main__':
