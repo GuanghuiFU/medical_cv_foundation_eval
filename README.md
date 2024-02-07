@@ -48,11 +48,11 @@ To be as similar as possible to lymphoma segmentation task, we selected the T1-w
   * Resample to (1,1,1)
   * Resize to (240, 240, 160)
   * Intensity normalization to (0, 1)
-* **Trained model link**: https://owncloud.icm-institute.org/index.php/s/2dPGj9hu4Jvk6Qh
+* **Trained model link**: https://owncloud.icm-institute.org/index.php/s/2dPGj9hu4Jvk6Qh/download?path=%2F&files=Dataset910_Lymphoma.zip
 
 ### Enhancing tumor segmentation in MSD-BraTs datasets 
 There is no preprocessing needed for using trained nnU-net model to inference on MSD-BraTS.
-* **Trained model link**: https://owncloud.icm-institute.org/index.php/s/2dPGj9hu4Jvk6Qh
+* **Trained model link**: https://owncloud.icm-institute.org/index.php/s/2dPGj9hu4Jvk6Qh/download?path=%2F&files=Dataset912_BRATS.zip
 
 ## Contents for reproducing MSD-BraTS experiments
 We provide the following contents for reproduction of MSD-BraTS experiments:
