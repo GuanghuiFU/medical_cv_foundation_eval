@@ -19,7 +19,8 @@ def load_and_save_t1gd_nifti(folder_path, output_folder):
         # Extract and save only the T1gd modality data
         modality_data = data[:, :, :, modality_index]
         modality_img = nib.Nifti1Image(modality_data, img.affine)
-        modality_file_path = os.path.join(output_folder, os.path.basename(file_path))
+        modality_name = os.path.basename(file_path).replace('.nii.gz','_0000.nii.gz')
+        modality_file_path = os.path.join(output_folder, modality_name)
         nib.save(modality_img, modality_file_path)
 
     print("Processing complete.")

@@ -56,10 +56,7 @@ def load_and_resize_image(image_path, target_size=(240, 240)):
 def png_to_nifti(pred_dir, subject_name):
     input_dir = os.path.join(pred_dir, subject_name)
     output_file = os.path.join(pred_dir, f"{subject_name}.nii.gz")
-    mri_3d_label_dir = '/network/lustre/iss02/aramis/users/guanghui.fu/data/nnUNetFrame/DATASET/nnUNet_raw/Dataset912_BRATS/labelsTs'
-    reference_nifti_path = f'{mri_3d_label_dir}/{subject_name}.nii.gz'
-    reference_nifti = nib.load(reference_nifti_path)
-    affine = reference_nifti.affine
+    reference_nifti_affine = np.eye(4)
     volume = np.zeros((240, 240, 155), dtype=np.uint8)
     for slice_index in range(155):
         file_name = f'slice_{slice_index}_image.png'
@@ -69,7 +66,7 @@ def png_to_nifti(pred_dir, subject_name):
         else:
             current_slice = np.zeros((240, 240), dtype=np.uint8)
         volume[:, :, slice_index] = current_slice
-    nifti_img = nib.Nifti1Image(volume, affine)
+    nifti_img = nib.Nifti1Image(volume, reference_nifti_affine)
     nib.save(nifti_img, output_file)
 
 
@@ -93,17 +90,12 @@ def get_support_set(support_set_dir, n_support, device="cuda"):
     support_label_dir = f'{support_set_dir}/labels'
     d_support = CustomDataset(support_img_dir, support_label_dir)
     support_images, support_labels = zip(*itertools.islice(d_support, n_support))
-    print('len(support_images):', len(support_images))
-    print('len(support_labels):', len(support_labels))
     support_images_tensor = torch.stack(support_images).unsqueeze(0).unsqueeze(2).to(device)  # [B, S, C, H, W]
     support_labels_tensor = torch.stack(support_labels).unsqueeze(0).unsqueeze(2).to(device)  # [B, S, 1]
-    print('support_images_tensor.size():', support_images_tensor.size())
-    print('support_labels_tensor.size():', support_labels_tensor.size())
     return support_images_tensor, support_labels_tensor
 
 
-def universeg_process(model, subject_name, target_img_dir, support_images_tensor, support_labels_tensor, pred_save_dir,
-                      device="cuda", threshold=0.7):
+def universeg_process(model, subject_name, target_img_dir, support_images_tensor, support_labels_tensor, pred_save_dir, device="cuda", threshold=0.7):
     target_img_dir = f'{target_img_dir}/{subject_name}'
     prediction_dir = f'{pred_save_dir}/{subject_name}'
     if not os.path.exists(prediction_dir):
@@ -121,14 +113,12 @@ def universeg_process(model, subject_name, target_img_dir, support_images_tensor
             save_tensor_as_image(pred_binary * 255, os.path.join(prediction_dir, f'{img_file}'))
 
 
-def main(mri_2d_img_dir, support_set_base_dir, selection, pred_save_dir, threshold):
+def main(mri_2d_img_dir, support_set_dir, pred_save_dir, threshold):
     device = 'cuda'
-    support_set_dir = f'{support_set_base_dir}/{selection}'
-    n_support = len(glob.glob(f'{support_set_dir}/*.png'))
-
+    n_support = len(glob.glob(f'{support_set_dir}/images/*.png'))
     model = universeg(pretrained=True).to(device)
     test_subject_names = os.listdir(mri_2d_img_dir)
-    for test_subject in tqdm(test_subject_names):
+    for test_subject in test_subject_names:
         print('Processing:', test_subject)
         support_images_tensor, support_labels_tensor = get_support_set(support_set_dir, n_support, device)
         universeg_process(model, test_subject, mri_2d_img_dir, support_images_tensor.to(device), support_labels_tensor.to(device), pred_save_dir, device, threshold)

@@ -1,4 +1,5 @@
 import os
+import glob
 from PIL import Image
 from scipy.ndimage import zoom
 import nibabel as nib
@@ -29,27 +30,30 @@ def nifti_to_png_slices_binary(image_path, output_folder, resize_shape=(128, 128
 
 
 def mri_3d_2d_slice(image_dir, save_dir):
-    for filename in os.listdir(image_dir):
-        if filename.endswith('.nii') or filename.endswith('.nii.gz'):
-            image_path = os.path.join(image_dir, filename)
-            output_folder = os.path.join(save_dir, filename.split('.')[0])
-            os.makedirs(output_folder, exist_ok=True)
-            try:
-                nifti_to_png_slices(image_path, output_folder)
-            except:
-                print('[ERROR]:', filename)
+    for image_path in glob.glob(f'{image_dir}/*_0000.nii.gz'):
+        filename = os.path.basename(image_path)
+        base_name = os.path.splitext(os.path.splitext(filename)[0])[0]  # Handles .nii.gz correctly
+        output_folder = os.path.join(save_dir, base_name)
+        os.makedirs(output_folder, exist_ok=True)
+        try:
+            nifti_to_png_slices(image_path, output_folder)
+        except Exception as e:
+            print(f'[ERROR]: {filename}, {e}')
+    print("mri_3d_2d_slice Processing complete.")
+
 
 
 def label_3d_2d_slice(label_dir, save_dir):
-    for filename in os.listdir(label_dir):
-        if filename.endswith('.nii') or filename.endswith('.nii.gz'):
-            label_path = os.path.join(label_dir, filename)
-            output_folder = os.path.join(save_dir, filename.split('.')[0])
-            os.makedirs(output_folder, exist_ok=True)
-            try:
-                nifti_to_png_slices_binary(label_path, output_folder)
-            except:
-                print('[ERROR]:', filename)
+    for label_path in glob.glob(os.path.join(label_dir, '*.nii.gz')):
+        filename = os.path.basename(label_path)
+        base_name = os.path.splitext(os.path.splitext(filename)[0])[0]  # Correctly handles .nii.gz
+        output_folder = os.path.join(save_dir, base_name)
+        os.makedirs(output_folder, exist_ok=True)
+        try:
+            nifti_to_png_slices_binary(label_path, output_folder)
+        except Exception as e:
+            print(f'[ERROR]: {filename}, {e}')
+    print("label_3d_2d_slice Processing complete.")
 
 
 def main(mri_3d_img_tr_dir, mri_3d_label_tr_dir, mri_3d_img_ts_dir, mri_3d_label_ts_dir, mri_2d_img_tr_dir, mri_2d_label_tr_dir, mri_2d_img_ts_dir, mri_2d_label_ts_dir):

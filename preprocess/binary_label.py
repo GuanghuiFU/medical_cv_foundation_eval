@@ -22,3 +22,4 @@ def main(input_folder, output_folder):
 
             nib.save(new_img, output_file_path)
 
+    print("Processing complete.")

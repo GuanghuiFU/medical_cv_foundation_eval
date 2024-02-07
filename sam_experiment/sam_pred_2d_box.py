@@ -75,14 +75,14 @@ def main(sam_model_name, sam_checkpoint_path, image_dir, prompt_csv_path, save_d
                       'sam_vit_h_4b8939': 'vit_h',
                       'medsam_vit_b': 'vit_b'}
     sam_model_type = sam_model_dict[sam_model_name]
-    print(sam_model_name, sam_model_type, sam_checkpoint_path)
+    print("SAM model name:", sam_model_name, "; SAM model type:", sam_model_type, "; SAM model path:", sam_checkpoint_path)
     os.makedirs(save_dir, exist_ok=True)
-    mri_path_list = glob.glob(f'{image_dir}/*.nii.gz')
+    mri_path_list = glob.glob(f'{image_dir}/*_0000.nii.gz')
     for mri_path in mri_path_list:
         mri_name = os.path.basename(mri_path)
         try:
             print('Processing:', mri_name, '. mri_path:', mri_path)
-            annotations_list = get_annotations_from_csv(mri_name.replace("_0000",""), prompt_csv_path)
+            annotations_list = get_annotations_from_csv(mri_name, prompt_csv_path)
             mri_data = normalize_image(load_nifti_data(mri_path))
             prediction = sam_predict(sam_model_type, sam_checkpoint_path, mri_data, annotations_list)
             save_nifti_data(prediction, mri_path, f'{save_dir}/{mri_name}')

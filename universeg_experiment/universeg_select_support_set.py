@@ -14,7 +14,7 @@ def select_slice(subject_names, label_dir, support_set_dir, selection='largest',
     os.makedirs(support_labels_path, exist_ok=True)
 
     for subject in subject_names:
-        subject_label_dir = os.path.join(label_dir, subject)
+        subject_label_dir = f'{label_dir}/{subject}'
         file_selection = None
         area_to_file_map = []
 
@@ -50,73 +50,16 @@ def select_slice(subject_names, label_dir, support_set_dir, selection='largest',
                 # Copy label
                 copyfile(selected_file_path, label_dest_file_path)
                 # Copy corresponding MRI image
-                image_file_path = selected_file_path.replace('labels', 'images')
+                image_file_path = selected_file_path.replace(subject, f'{subject}_0000').replace('labels', 'images')
                 copyfile(image_file_path, image_dest_file_path)
-
-                print(f"Copied {selected_file_path} to {label_dest_file_path}")
             else:
                 print(f"No suitable label files found for subject: {subject} using criteria '{selection}'")
         except Exception as e:
             print(f"An error occurred while processing labels for subject {subject} using criteria '{selection}': {e}")
 
 def main(data_split_csv_path, label_dir, support_set_base_dir, selection):
-    data_split_csv_path = '../brats-data_split.csv'
     df = pd.read_csv(data_split_csv_path)
     train_subjects_df = df[df['Train/Test'] == 'Train']
     subject_names = train_subjects_df['File'].tolist()
-    '''
-    Note that the label_dir here is the 2d slice of your label. The structure of this folder should be like this:
-    
-    slice_128_128
-    ├── imagesTr_slice
-    │   ├── BRATS_076
-    │   │   ├── slice_0_image.png
-    │   │   ├── slice_1_image.png
-    │   │   ├── slice_..._image.png
-    │   │   └── slice_154_image.png
-    │   └── BRATS_077
-    │       ├── slice_0_image.png
-    │       ├── slice_1_image.png
-    │       ├── slice_..._image.png
-    │       └── slice_154_image.png
-    ├── imagesTs_slice
-    │   ├── BRATS_001
-    │   │   ├── slice_0_image.png
-    │   │   ├── slice_1_image.png
-    │   │   ├── slice_..._image.png
-    │   │   └── slice_154_image.png
-    │   └── BRATS_077
-    │       ├── slice_0_image.png
-    │       ├── slice_1_image.png
-    │       ├── slice_..._image.png
-    │       └── slice_154_image.png
-    ├── labelsTr_slice
-    │   ├── BRATS_076
-    │   │   ├── slice_0_image.png
-    │   │   ├── slice_1_image.png
-    │   │   ├── slice_..._image.png
-    │   │   └── slice_154_image.png
-    │   └── BRATS_077
-    │       ├── slice_0_image.png
-    │       ├── slice_1_image.png
-    │       ├── slice_..._image.png
-    │       └── slice_154_image.png
-    └── labelsTs_slice
-        ├── BRATS_076
-        │   ├── slice_0_image.png
-        │   ├── slice_1_image.png
-        │   ├── slice_..._image.png
-        │   └── slice_154_image.png
-        └── BRATS_077
-            ├── slice_0_image.png
-            ├── slice_1_image.png
-            ├── slice_..._image.png
-            └── slice_154_image.png
-    '''
-    
-    label_dir = 'your/2d/level/dataset/path/slice_128_128/labelsTr_slice'
-    support_set_base_dir = 'your/support/set/path'
     select_slice(subject_names, label_dir, support_set_base_dir, selection=selection, min_area=10)
-    # select_slice(subject_names, label_dir, support_set_base_dir, selection='largest', min_area=10)
-    # select_slice(subject_names, label_dir, support_set_base_dir, selection='smallest', min_area=10)
-    # select_slice(subject_names, label_dir, support_set_base_dir, selection='middle', min_area=10)
+    print('Processing complete.')
