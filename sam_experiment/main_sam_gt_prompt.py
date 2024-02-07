@@ -4,11 +4,11 @@ import sam_experiment.label2box_3d as label2box_3d
 import sam_experiment.sam_pred_2d_box as sam_pred_2d_box
 import sam_experiment.sam_pred_3d_box as sam_pred_3d_box
 
-image_dir = 'C:/Users/fugua/Downloads/FM_experiments/imagesTs'
-label_dir = 'C:/Users/fugua/Downloads/FM_experiments/labelsTs'
+image_dir = 'your/base/path/FM_experiments/imagesTs'
+label_dir = 'your/base/path/FM_experiments/labelsTs'
 box_prompt_gt_2d_folder_path = 'brats_prompt/2d_gt'
 box_prompt_gt_3d_path = 'brats_prompt/3d_gt.csv'
-pred_save_dir = "C:/Users/fugua/Downloads/FM_experiments/experiment_sam"
+pred_save_dir = "your/base/path/FM_experiments/experiment_sam"
 os.makedirs(pred_save_dir, exist_ok=True)
 
 # SAM related setting

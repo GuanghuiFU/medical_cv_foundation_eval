@@ -1,8 +1,8 @@
 import sam_experiment.sam_pred_3d_box as sam_pred_3d_box
 
-image_dir = 'C:/Users/fugua/Downloads/FM_experiments/imagesTs'
+image_dir = 'your/base/path/FM_experiments/imagesTs'
 box_prompt_manual_3d_path = 'brats_prompt/3d_manual.csv'
-pred_save_dir = f'C:/Users/fugua/Downloads/FM_experiments/experiment_sam'
+pred_save_dir = f'your/base/path/FM_experiments/experiment_sam'
 
 # SAM related setting
 sam_model_name_list = ['sam_vit_b_01ec64','sam_vit_l_0b3195','sam_vit_h_4b8939','medsam_vit_b']

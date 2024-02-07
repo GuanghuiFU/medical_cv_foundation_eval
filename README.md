@@ -4,8 +4,8 @@
 This repository contains material associated to this [paper](#Citation).
 
 It contains:
-- link to trained models for segmentation of lymphoma from post-constrast T1-weighted MRI ([link](https://owncloud.icm-institute.org/index.php/s/2dPGj9hu4Jvk6Qh), password: ARAMIS)
-- link to trained models for segmentation of enhancing tumor in MSD-BraTS datasets ([link](https://owncloud.icm-institute.org/index.php/s/2dPGj9hu4Jvk6Qh), password: ARAMIS)
+- link to trained models for segmentation of lymphoma from post-constrast T1-weighted MRI ([link](https://owncloud.icm-institute.org/index.php/s/2dPGj9hu4Jvk6Qh))
+- link to trained models for segmentation of enhancing tumor in MSD-BraTS datasets ([link](https://owncloud.icm-institute.org/index.php/s/2dPGj9hu4Jvk6Qh))
 - code and material for reproducing the experiments on MSD-BraTS
 
 If you use this material, we would appreciate if you could cite the following reference.
@@ -29,6 +29,18 @@ We provide the following contents for reproduction of MSD-BraTS experiments:
 - code to train nnU-Net models ([link](#Code-to-train-nnU-net))
 - code for inference of all models ([SAM](#Inference-for-SAM-models), [MedSAM](#Inference-for-MedSAM), [UniverSeg](#Inference-for-UniverSeg), [nnU-Net](#))
 - code for computation of metrics and statistical analysis ([link](#))
+## Download and install
+* **Install SAM repository:** `pip install git+https://github.com/facebookresearch/segment-anything.git`
+* **Install UniverSeg repository:** `pip install git+https://github.com/JJGO/UniverSeg.git`
+
+* **Dataset download (from medical segmentation decathlon website):** https://drive.google.com/file/d/1A2IU8Sgea1h3fYLpYtFb2v7NYdMjvEhU/view?usp=drive_link
+
+* **Model checkpoints download**:
+Please download SAM and MedSam models from the following links:
+    1. **SAM, vit-b:** https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth
+    2. **SAM, vit-h:** https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth
+    3. **SAM, vit-l:** https://dl.fbaipublicfiles.com/segment_anything/sam_vit_l_0b3195.pth
+    4. **MedSAM, vit-b:** https://drive.google.com/file/d/1UAmWL88roYR7wKlnApw5Bcuzf2iQgk6_/view?usp=drive_link
 
 ## Manual box prompt annotation
 
