@@ -21,29 +21,6 @@ If you use this material, we would appreciate if you could cite the following re
   year={2024}
 }
 ```
-
-## Trained nnU-net models
-### Lymphoma segmentation in post-contrast T1-weighted MRI 
-* **Preprocessing**:
-  * Resample to (1,1,1)
-  * Resize to (240, 240, 160)
-  * Intensity normalization to (0, 1)
-* **Trained model link**: https://owncloud.icm-institute.org/index.php/s/2dPGj9hu4Jvk6Qh
-
-### Enhancing tumor segmentation in MSD-BraTs datasets 
-There is no preprocessing needed for using trained nnU-net model to inference on MSD-BraTS.
-* **Trained model link**: https://owncloud.icm-institute.org/index.php/s/2dPGj9hu4Jvk6Qh
-
-## Contents for reproducing MSD-BraTS experiments
-We provide the following contents for reproduction of MSD-BraTS experiments:
-- list of subjects of MSD-BraTS that were used ([link](<https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/brats-data_split.csv>))
-- manual box prompts for SAM and MedSAM models ([link](#Manual-box-prompt-annotation))
-- support sets for UniverSeg experiments ([link](#Support-sets-for-Universeg))
-- code to train nnU-Net models ([link](#Code-to-train-nnU-net))
-- code for inference of all models ([SAM](#Inference-for-SAM-models), [MedSAM](#Inference-for-MedSAM), [UniverSeg](#Inference-for-UniverSeg), [nnU-Net](#Inference-for-nnU-Net))
-- code for computation of metrics and statistical analysis ([link](#Computation-of-metrics-and-statistical-analysis))
-- Note that, here train means train/validation for nnU-Net.
-
 ## Download and install
 * **Install SAM repository:** `pip install git+https://github.com/facebookresearch/segment-anything.git`
 * **Install UniverSeg repository:** `pip install git+https://github.com/JJGO/UniverSeg.git`
@@ -59,11 +36,35 @@ We provide the following contents for reproduction of MSD-BraTS experiments:
 
 ## Data split pre-processing
 
-To be as similar as possible to lymphoma segmentation task, we selected the T1-weighted MRI after gadolinium injection and focused on the enhancing tumor as the target region. So that we need some basic pre-processing to get T1-GD MRI and enhancing tumor from MSD-BraTs dataset.
-* `preprocess/main_preprocess.py`: 
+To be as similar as possible to lymphoma segmentation task, we selected the T1-weighted MRI after gadolinium injection and focused on the enhancing tumor as the target region. Therefore, we need some basic preprocessing to obtain T1-GD from MRI and select enhancing tumors from the label file of MSD-BraTs dataset.
+* [`preprocess/main_preprocess.py`](<https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/preprocess/main_preprocess.py>): 
   * Split dataset
   * Get T1-GD modality from dataset
   * Binary label and get enhancing tumor
+  
+## Trained nnU-net models
+### Lymphoma segmentation in post-contrast T1-weighted MRI 
+* **Preprocessing**:
+  * Resample to (1,1,1)
+  * Resize to (240, 240, 160)
+  * Intensity normalization to (0, 1)
+* **Trained model link**: https://owncloud.icm-institute.org/index.php/s/2dPGj9hu4Jvk6Qh/download?path=%2F&files=Dataset910_Lymphoma.zip
+
+### Enhancing tumor segmentation in MSD-BraTs datasets 
+There is no preprocessing needed for using trained nnU-net model to inference on MSD-BraTS.
+* **Trained model link**: https://owncloud.icm-institute.org/index.php/s/2dPGj9hu4Jvk6Qh/download?path=%2F&files=Dataset912_BRATS.zip
+
+## Contents for reproducing MSD-BraTS experiments
+We provide the following contents for reproduction of MSD-BraTS experiments:
+- list of subjects of MSD-BraTS that were used ([link](<https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/brats-data_split.csv>))
+- manual box prompts for SAM and MedSAM models ([link](#Manual-box-prompt-annotation))
+- support sets for UniverSeg experiments ([link](#Support-sets-for-Universeg))
+- code to train nnU-Net models ([link](#Code-to-train-nnU-net))
+- code for inference of all models ([SAM/MedSAM](#Inference-for-SAM-and-MedSAM-models), [UniverSeg](#Inference-for-UniverSeg), [nnU-Net](#Inference-for-nnU-Net))
+- code for computation of metrics and statistical analysis ([link](#Computation-of-metrics-and-statistical-analysis))
+- Note that, here train means train/validation for nnU-Net.
+
+
 
 ## Manual box prompt annotation
 
@@ -73,20 +74,20 @@ The figure below shows our process of using ITK-SNAP for drawing box prompts.
 
 We also provide screen recording videos during annotation: https://owncloud.icm-institute.org/index.php/s/9LWatZ2xDB9SvE0
 
-![manual_box](https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/manual_box_prompt.png)
+![manual_box](manual_box_prompt.png)
 
 In order to reproduce the experiments, you need the coordinates of the box prompts which are given here:
-* `brats_3d_box_prompt_manual.csv`: The manual annotate box prompt in 3D level
+* [`sam_experiment/brats_prompt/3d_manual.csv`](<https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/sam_experiment/brats_prompt/3d_manual.csv>): The manual annotate box prompt in 3D level
 
 ## Generating boxes from grount truth
 Also we provide the prompts generated from ground-truth.
-* `brats_3d_box_prompt_label2box.csv`: The box prompt generate from ground truth in 3D level. 
-* `brats_2d_box_prompt_label2box.csv`: The box prompt generate from ground truth in 2D level
+* [`sam_experiment/brats_prompt/3d_gt.csv`](<https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/sam_experiment/brats_prompt/3d_gt.csv>): The box prompt generate from ground truth in 3D level. 
+* [`sam_experiment/brats_prompt/2d_gt`](<https://github.com/GuanghuiFU/medical_cv_foundation_eval/tree/main/sam_experiment/brats_prompt/2d_gt>): The box prompt generate from ground truth in 2D level
 
 The code to generate the boxes from ground truth is provided here:
 
-* `label2box_3d.py` : The code to generate box prompt from ground truth in 3D level.
-* `label2box_2d.py`: The code to generate box prompt from ground truth in 2D slice level.
+* [`sam_experiment/label2box_3d.py`](<https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/sam_experiment/label2box_3d.py>): The code to generate box prompt from ground truth in 3D level.
+* [`sam_experiment/label2box_2d.py`](<https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/sam_experiment/label2box_2d.py>): The code to generate box prompt from ground truth in 2D slice level.
 
 
 ## Support sets for Universeg
@@ -94,11 +95,11 @@ The code to generate the boxes from ground truth is provided here:
 The different support sets are given here:  [`brats_support_set.zip`](<https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/brats_support_set.zip>) 
 
 The code to build the support sets:
-* `universeg_select_support_set.py`: this code offers strategies for selecting the support set, a crucial step in preparing data for the UniverSeg [2] model. It includes options to select slices based on their size (largest, smallest, or medium). 
+* [`universeg_experiment/universeg_select_support_set.py`](<https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/universeg_experiment/universeg_select_support_set.py>): this code offers strategies for selecting the support set, a crucial step in preparing data for the UniverSeg [2] model. It includes options to select slices based on their size (largest, smallest, or medium). 
 
 ## Code to train nnU-net
 
-Training nnU-Net only requires the following commands: 
+Training nnU-Net only requires the following commands. `DATASET_ID` and `FOLD` are defined in the same way as [nnU-net official codes](<https://github.com/MIC-DKFZ/nnUNet>). See the [official code](<https://github.com/MIC-DKFZ/nnUNet>) for details.
 
 * **Plan and preprocessing**:
 ```console
@@ -114,11 +115,11 @@ nnUNetv2_train DATASET_ID 2d FOLD
 ```
 ## Inference for SAM and MedSAM models
 
-* `main_sam_manual_prompt.py`: it can load the 3D-level manual annotate box prompt, and use SAM/MedSAM to inference.
-* `main_sam_gt_prompt.py`: it can load the 3D/2D level box prompt generate from ground truth, and use SAM/MedSAM to inference.
+* [`sam_experiment/main_sam_manual_prompt.py`](<https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/sam_experiment/main_sam_manual_prompt.py>): it can load the 3D-level manual annotate box prompt, and use SAM/MedSAM to inference.
+* [`sam_experiment/main_sam_gt_prompt.py`](<https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/sam_experiment/main_sam_gt_prompt.py>): it can load the 3D/2D level box prompt generate from ground truth, and use SAM/MedSAM to inference.
 
 ## Inference for UniverSeg
-* `main_universeg.py`: it contains these three key steps:
+* [`universeg_experiment/main_universeg.py`](<https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/universeg_experiment/main_universeg.py>): it contains these three key steps:
   * Transfer data from 3d to 2D and resize to (128,128)
   * Create support set
   * Inference the UniverSeg model
@@ -126,7 +127,7 @@ nnUNetv2_train DATASET_ID 2d FOLD
 
 ## Inference for nnU-Net
 
-Inferencing nnU-Net only requires the following commands: 
+Inferencing nnU-Net only requires the following commands. `DATASET_ID`, `INPUT_FOLDER` and `OUTPUT_FOLDER` are defined in the same way as [nnU-net official codes](<https://github.com/MIC-DKFZ/nnUNet>). See the [official code](<https://github.com/MIC-DKFZ/nnUNet>) for details.
 
 * **3D inference**: 
 ```console
@@ -138,8 +139,8 @@ nnUNetv2_predict -d DATASET_ID -i INPUT_FOLDER -o OUTPUT_FOLDER -f  0 1 2 3 4 -t
 ```
 ## Computation of metrics and statistical analysis
 
-* `evaluation.py`: This code is for evaluation and calculate the 95% bootstrap confidence interval.
-* `t_test.py`: This code is to perform paired T-test.
+* [`evaluation/eval_bootstrap_ci.py`](<https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/evaluation/eval_boostrap_ci.py>): This code is for evaluation and calculate the 95% bootstrap confidence interval.
+* [`evaluation/t_test.py`](<https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/evaluation/t_test.py>): This code is to perform paired T-test.
 
 
 ## Related codes
