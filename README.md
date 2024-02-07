@@ -4,14 +4,14 @@
 This repository contains material associated to this [paper](#Citation).
 
 It contains:
-- link to trained models for segmentation of lymphoma from post-constrast T1-weighted MRI ([link](https://owncloud.icm-institute.org/index.php/s/2dPGj9hu4Jvk6Qh))
-- link to trained models for segmentation of enhancing tumor in MSD-BraTS datasets ([link](https://owncloud.icm-institute.org/index.php/s/2dPGj9hu4Jvk6Qh))
-- code and material for reproducing the experiments on MSD-BraTS
+- link to trained models for segmentation of lymphoma from post-constrast T1-weighted MRI ([link](#Trained-nnU-net-models))
+- link to trained models for segmentation of enhancing tumor in MSD-BraTS datasets ([link](#Trained-nnU-net-models))
+- code and material for reproducing the experiments on MSD-BraTS ([link](#Contents-for-reproducing-MSD-BraTS-experiments))
 
 If you use this material, we would appreciate if you could cite the following reference.
 
 ## Citation
-* Guanghui Fu, Lucia Nichelli, Dario Herran, Romain Valabregue, Agusti Alentorn, Khê Hoang-Xuan, Caroline Houillier, Didier Dormont, Stéphane Lehéricy, Olivier Colliot. Comparing foundation models and nnU-Net for segmentation of primary brain lymphoma on clinical routine post-contrast T1-weighted MRI. Submitted to *MIDL 2024*.
+* Guanghui Fu, Lucia Nichelli, Dario Herran, Romain Valabregue, Agusti Alentorn, Khê Hoang-Xuan, Caroline Houillier, Didier Dormont, Stéphane Lehéricy, Olivier Colliot. Comparing foundation models and nnU-Net for segmentation of primary brain lymphoma on clinical routine post-contrast T1-weighted MRI. Preprint.
 
 ```
 @inproceedings{fu2024comparing,
@@ -21,14 +21,29 @@ If you use this material, we would appreciate if you could cite the following re
   year={2024}
 }
 ```
+
+## Trained nnU-net models
+### Lymphoma segmentation in post-contrast T1-weighted MRI 
+* **Preprocessing**:
+  * Resample to (1,1,1)
+  * Resize to (240, 240, 160)
+  * Intensity normalization to (0, 1)
+* **Trained model link**: https://owncloud.icm-institute.org/index.php/s/2dPGj9hu4Jvk6Qh
+
+### Enhancing tumor segmentation in MSD-BraTs datasets 
+There is no preprocessing needed for using trained nnU-net model to inference on MSD-BraTS.
+* **Trained model link**: https://owncloud.icm-institute.org/index.php/s/2dPGj9hu4Jvk6Qh
+
 ## Contents for reproducing MSD-BraTS experiments
 We provide the following contents for reproduction of MSD-BraTS experiments:
 - list of subjects of MSD-BraTS that were used ([link](<https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/brats-data_split.csv>))
 - manual box prompts for SAM and MedSAM models ([link](#Manual-box-prompt-annotation))
 - support sets for UniverSeg experiments ([link](#Support-sets-for-Universeg))
 - code to train nnU-Net models ([link](#Code-to-train-nnU-net))
-- code for inference of all models ([SAM](#Inference-for-SAM-models), [MedSAM](#Inference-for-MedSAM), [UniverSeg](#Inference-for-UniverSeg), [nnU-Net](#))
-- code for computation of metrics and statistical analysis ([link](#))
+- code for inference of all models ([SAM](#Inference-for-SAM-models), [MedSAM](#Inference-for-MedSAM), [UniverSeg](#Inference-for-UniverSeg), [nnU-Net](#Inference-for-nnU-Net))
+- code for computation of metrics and statistical analysis ([link](#Computation-of-metrics-and-statistical-analysis))
+- Note that, here train means train/validation for nnU-Net.
+
 ## Download and install
 * **Install SAM repository:** `pip install git+https://github.com/facebookresearch/segment-anything.git`
 * **Install UniverSeg repository:** `pip install git+https://github.com/JJGO/UniverSeg.git`
@@ -36,11 +51,19 @@ We provide the following contents for reproduction of MSD-BraTS experiments:
 * **Dataset download (from medical segmentation decathlon website):** https://drive.google.com/file/d/1A2IU8Sgea1h3fYLpYtFb2v7NYdMjvEhU/view?usp=drive_link
 
 * **Model checkpoints download**:
-Please download SAM and MedSam models from the following links, and put these checkpoints to `sam_experiment/checkpoints` path.
+  Please download SAM and MedSam models from the following links, and put these checkpoints to `sam_experiment/checkpoints` path.
     1. **SAM, vit-b:** https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth
     2. **SAM, vit-h:** https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth
     3. **SAM, vit-l:** https://dl.fbaipublicfiles.com/segment_anything/sam_vit_l_0b3195.pth
     4. **MedSAM, vit-b:** https://drive.google.com/file/d/1UAmWL88roYR7wKlnApw5Bcuzf2iQgk6_/view?usp=drive_link
+
+## Data split pre-processing
+
+To be as similar as possible to lymphoma segmentation task, we selected the T1-weighted MRI after gadolinium injection and focused on the enhancing tumor as the target region. So that we need some basic pre-processing to get T1-GD MRI and enhancing tumor from MSD-BraTs dataset.
+* `preprocess/main_preprocess.py`: 
+  * Split dataset
+  * Get T1-GD modality from dataset
+  * Binary label and get enhancing tumor
 
 ## Manual box prompt annotation
 
@@ -50,7 +73,7 @@ The figure below shows our process of using ITK-SNAP for drawing box prompts.
 
 We also provide screen recording videos during annotation: https://owncloud.icm-institute.org/index.php/s/9LWatZ2xDB9SvE0
 
-![manual_box](manual_box_prompt.png)
+![manual_box](https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/manual_box_prompt.png)
 
 In order to reproduce the experiments, you need the coordinates of the box prompts which are given here:
 * `brats_3d_box_prompt_manual.csv`: The manual annotate box prompt in 3D level
@@ -62,8 +85,8 @@ Also we provide the prompts generated from ground-truth.
 
 The code to generate the boxes from ground truth is provided here:
 
-* `label2box_roi.py` : The code to generate box prompt from ground truth in 3D level.
-* `label2box_roi_2d_slice.py`: The code to generate box prompt from ground truth in 2D slice level.
+* `label2box_3d.py` : The code to generate box prompt from ground truth in 3D level.
+* `label2box_2d.py`: The code to generate box prompt from ground truth in 2D slice level.
 
 
 ## Support sets for Universeg
@@ -77,36 +100,46 @@ The code to build the support sets:
 
 Training nnU-Net only requires the following commands: 
 
-* **Plan and preprocessing**: nnUNetv2_plan_and_preprocess -d DATASET_ID --verify_dataset_integrity
-* **3D model training**: nnUNetv2_train DATASET_ID 3d_fullres FOLD
-* **2D model training**: nnUNetv2_train DATASET_ID 2d FOLD
-
+* **Plan and preprocessing**:
+```console
+nnUNetv2_plan_and_preprocess -d DATASET_ID --verify_dataset_integrity
+```
+* **3D model training**:
+```console
+nnUNetv2_train DATASET_ID 3d_fullres FOLD
+```
+* **2D model training**:
+```console
+nnUNetv2_train DATASET_ID 2d FOLD
+```
 ## Inference for SAM and MedSAM models
 
-* `sam_pred.py`: it starts by loading a 3D-level box prompt from an Excel file. The core process involves predicting on axial level slices using the SAM [1]. Key steps include:
-  * **3D-to-2D Conversion:** Transforms the 3D level box prompt into a 2D format for SAM processing.
-  * **SAM Prediction:** Utilizes SAM-based prediction on each 2D axial slice.
-  * **2D-to-3D Reconstruction:** After processing slices, it reconstructs the 2D predictions back into a 3D volume, enabling performance evaluation.
+* `main_sam_manual_prompt.py`: it can load the 3D-level manual annotate box prompt, and use SAM/MedSAM to inference.
+* `main_sam_gt_prompt.py`: it can load the 3D/2D level box prompt generate from ground truth, and use SAM/MedSAM to inference.
 
 ## Inference for UniverSeg
-* `universeg_pred.py`: this is for segmenting 3D brain MRI data using the UniverSeg model. The process involves several transformation and processing steps:
-  * **3D to 2D Transformation:** Converts each slice from the 3D volume into a 2D image in axial plane.
-  * **Resizing for UniverSeg:** Resizes these 2D slices from their original resolution to a uniform size of 128x128 pixels.
-  * **Support Set Configuration:** Requires setting up a support set for UniverSeg.
-  * **Slice-by-Slice Processing:** Applies the UniverSeg model to each 2D slice in the axial plane.
-  * **Reconstruction and Evaluation:** Collects the 2D predictions, resizes them back to their original resolution, and reconstructs them into a 3D volume for performance evaluation.
+* `main_universeg.py`: it contains these three key steps:
+  * Transfer data from 3d to 2D and resize to (128,128)
+  * Create support set
+  * Inference the UniverSeg model
+
 
 ## Inference for nnU-Net
 
 Inferencing nnU-Net only requires the following commands: 
 
-* **3D inference**: nnUNetv2_predict -d DATASET_ID -i INPUT_FOLDER -o OUTPUT_FOLDER -f  0 1 2 3 4 -tr nnUNetTrainer -c 3d_fullres -p nnUNetPlans
-* **2D inference**: nnUNetv2_predict -d DATASET_ID -i INPUT_FOLDER -o OUTPUT_FOLDER -f  0 1 2 3 4 -tr nnUNetTrainer -c 2d -p nnUNetPlans
-
+* **3D inference**: 
+```console
+nnUNetv2_predict -d DATASET_ID -i INPUT_FOLDER -o OUTPUT_FOLDER -f  0 1 2 3 4 -tr nnUNetTrainer -c 3d_fullres -p nnUNetPlans
+```
+* **2D inference**:
+```console
+nnUNetv2_predict -d DATASET_ID -i INPUT_FOLDER -o OUTPUT_FOLDER -f  0 1 2 3 4 -tr nnUNetTrainer -c 2d -p nnUNetPlans
+```
 ## Computation of metrics and statistical analysis
 
-* `evaluation.py`: This code is for evaluation and calculate the 95% bootstrap confidence interval ([link](<https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/evaluation.py>)).
-* `t_test.py`: This code is to perform paired T-test ([link](<https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/t_test.py>)).
+* `evaluation.py`: This code is for evaluation and calculate the 95% bootstrap confidence interval.
+* `t_test.py`: This code is to perform paired T-test.
 
 
 ## Related codes
