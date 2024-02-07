@@ -21,7 +21,27 @@ If you use this material, we would appreciate if you could cite the following re
   year={2024}
 }
 ```
+## Download and install
+* **Install SAM repository:** `pip install git+https://github.com/facebookresearch/segment-anything.git`
+* **Install UniverSeg repository:** `pip install git+https://github.com/JJGO/UniverSeg.git`
 
+* **Dataset download (from medical segmentation decathlon website):** https://drive.google.com/file/d/1A2IU8Sgea1h3fYLpYtFb2v7NYdMjvEhU/view?usp=drive_link
+
+* **Model checkpoints download**:
+  Please download SAM and MedSam models from the following links, and put these checkpoints to `sam_experiment/checkpoints` path.
+    1. **SAM, vit-b:** https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth
+    2. **SAM, vit-h:** https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth
+    3. **SAM, vit-l:** https://dl.fbaipublicfiles.com/segment_anything/sam_vit_l_0b3195.pth
+    4. **MedSAM, vit-b:** https://drive.google.com/file/d/1UAmWL88roYR7wKlnApw5Bcuzf2iQgk6_/view?usp=drive_link
+
+## Data split pre-processing
+
+To be as similar as possible to lymphoma segmentation task, we selected the T1-weighted MRI after gadolinium injection and focused on the enhancing tumor as the target region. Therefore, we need some basic preprocessing to obtain T1-GD from MRI and select enhancing tumors from the label file of MSD-BraTs dataset.
+* [`preprocess/main_preprocess.py`](<https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/preprocess/main_preprocess.py>): 
+  * Split dataset
+  * Get T1-GD modality from dataset
+  * Binary label and get enhancing tumor
+  
 ## Trained nnU-net models
 ### Lymphoma segmentation in post-contrast T1-weighted MRI 
 * **Preprocessing**:
@@ -44,26 +64,7 @@ We provide the following contents for reproduction of MSD-BraTS experiments:
 - code for computation of metrics and statistical analysis ([link](#Computation-of-metrics-and-statistical-analysis))
 - Note that, here train means train/validation for nnU-Net.
 
-## Download and install
-* **Install SAM repository:** `pip install git+https://github.com/facebookresearch/segment-anything.git`
-* **Install UniverSeg repository:** `pip install git+https://github.com/JJGO/UniverSeg.git`
 
-* **Dataset download (from medical segmentation decathlon website):** https://drive.google.com/file/d/1A2IU8Sgea1h3fYLpYtFb2v7NYdMjvEhU/view?usp=drive_link
-
-* **Model checkpoints download**:
-  Please download SAM and MedSam models from the following links, and put these checkpoints to `sam_experiment/checkpoints` path.
-    1. **SAM, vit-b:** https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth
-    2. **SAM, vit-h:** https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth
-    3. **SAM, vit-l:** https://dl.fbaipublicfiles.com/segment_anything/sam_vit_l_0b3195.pth
-    4. **MedSAM, vit-b:** https://drive.google.com/file/d/1UAmWL88roYR7wKlnApw5Bcuzf2iQgk6_/view?usp=drive_link
-
-## Data split pre-processing
-
-To be as similar as possible to lymphoma segmentation task, we selected the T1-weighted MRI after gadolinium injection and focused on the enhancing tumor as the target region. Therefore, we need some basic preprocessing to obtain T1-GD from MRI and select enhancing tumors from the label file of MSD-BraTs dataset.
-* [`preprocess/main_preprocess.py`](<https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/preprocess/main_preprocess.py>): 
-  * Split dataset
-  * Get T1-GD modality from dataset
-  * Binary label and get enhancing tumor
 
 ## Manual box prompt annotation
 
