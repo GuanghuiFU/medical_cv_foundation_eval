@@ -40,7 +40,7 @@ We provide the following contents for reproduction of MSD-BraTS experiments:
 - manual box prompts for SAM and MedSAM models ([link](#Manual-box-prompt-annotation))
 - support sets for UniverSeg experiments ([link](#Support-sets-for-Universeg))
 - code to train nnU-Net models ([link](#Code-to-train-nnU-net))
-- code for inference of all models ([SAM](#Inference-for-SAM-models), [MedSAM](#Inference-for-MedSAM), [UniverSeg](#Inference-for-UniverSeg), [nnU-Net](#Inference-for-nnU-Net))
+- code for inference of all models ([SAM/MedSAM](#Inference-for-SAM-and-MedSAM-models), [UniverSeg](#Inference-for-UniverSeg), [nnU-Net](#Inference-for-nnU-Net))
 - code for computation of metrics and statistical analysis ([link](#Computation-of-metrics-and-statistical-analysis))
 - Note that, here train means train/validation for nnU-Net.
 
@@ -59,7 +59,7 @@ We provide the following contents for reproduction of MSD-BraTS experiments:
 
 ## Data split pre-processing
 
-To be as similar as possible to lymphoma segmentation task, we selected the T1-weighted MRI after gadolinium injection and focused on the enhancing tumor as the target region. So that we need some basic pre-processing to get T1-GD MRI and enhancing tumor from MSD-BraTs dataset.
+To be as similar as possible to lymphoma segmentation task, we selected the T1-weighted MRI after gadolinium injection and focused on the enhancing tumor as the target region. Therefore, we need some basic preprocessing to obtain T1-GD from MRI and select enhancing tumors from the label file of MSD-BraTs dataset.
 * `preprocess/main_preprocess.py`: 
   * Split dataset
   * Get T1-GD modality from dataset
@@ -73,7 +73,7 @@ The figure below shows our process of using ITK-SNAP for drawing box prompts.
 
 We also provide screen recording videos during annotation: https://owncloud.icm-institute.org/index.php/s/9LWatZ2xDB9SvE0
 
-![manual_box](https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/manual_box_prompt.png)
+![manual_box](manual_box_prompt.png)
 
 In order to reproduce the experiments, you need the coordinates of the box prompts which are given here:
 * `brats_3d_box_prompt_manual.csv`: The manual annotate box prompt in 3D level
@@ -138,8 +138,8 @@ nnUNetv2_predict -d DATASET_ID -i INPUT_FOLDER -o OUTPUT_FOLDER -f  0 1 2 3 4 -t
 ```
 ## Computation of metrics and statistical analysis
 
-* `evaluation.py`: This code is for evaluation and calculate the 95% bootstrap confidence interval.
-* `t_test.py`: This code is to perform paired T-test.
+* `evaluation/eval_bootstrap_ci.py`: This code is for evaluation and calculate the 95% bootstrap confidence interval.
+* `evaluation/t_test.py`: This code is to perform paired T-test.
 
 
 ## Related codes
