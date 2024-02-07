@@ -44,10 +44,11 @@ To be as similar as possible to lymphoma segmentation task, we selected the T1-w
   
 ## Trained nnU-net models
 ### Lymphoma segmentation in post-contrast T1-weighted MRI 
-* **Preprocessing**:
+* [`preprocess/lymphoma_preprocess.py`](<https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/preprocess/lymphoma_preprocess.py>):
   * Resample to (1,1,1)
-  * Resize to (240, 240, 160)
-  * Intensity normalization to (0, 1)
+  * Rescale intensity
+  * CropOrPad, or Resize to (240, 240, 160)
+  * Note that, all these operations are performed through [TorchIO](<https://torchio.readthedocs.io/index.html>) operations
 * **Trained model link**: https://owncloud.icm-institute.org/index.php/s/2dPGj9hu4Jvk6Qh/download?path=%2F&files=Dataset910_Lymphoma.zip
 
 ### Enhancing tumor segmentation in MSD-BraTs datasets 
@@ -149,6 +150,7 @@ nnUNetv2_predict -d DATASET_ID -i INPUT_FOLDER -o OUTPUT_FOLDER -f  0 1 2 3 4 -t
 2. **MedSAM** [5]: https://github.com/bowang-lab/MedSAM
 3. **UniverSeg** [2]: https://github.com/JJGO/UniverSeg
 4. **nnU-Net** [4]: https://github.com/MIC-DKFZ/nnUNet
+5. **TorchIO** [6]: https://torchio.readthedocs.io/index.html
 
 ## References
 
@@ -157,3 +159,4 @@ nnUNetv2_predict -d DATASET_ID -i INPUT_FOLDER -o OUTPUT_FOLDER -f  0 1 2 3 4 -t
 3. Michela Antonelli, Annika Reinke, Spyridon Bakas, Keyvan Farahani, Annette Kopp-Schneider, Bennett A Landman, Geert Litjens, Bjoern Menze, Olaf Ronneberger, Ronald M Summers, et al. The medical segmentation decathlon. Nature communications, 13(1):4128, 2022.
 4. Fabian Isensee, Paul F Jaeger, Simon AA Kohl, Jens Petersen, and Klaus H Maier-Hein. nnU-Net: a self-configuring method for deep learning-based biomedical image segmentation. Nature methods, 18(2):203–211, 2021.
 5. Ma, Jun, et al. "Segment anything in medical images." *Nature Communications* 15.1 (2024): 654.
+6. Pérez-García, Fernando, Rachel Sparks, and Sébastien Ourselin. "TorchIO: a Python library for efficient loading, preprocessing, augmentation and patch-based sampling of medical images in deep learning." Computer Methods and Programs in Biomedicine 208 (2021): 106236.
