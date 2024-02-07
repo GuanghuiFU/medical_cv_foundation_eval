@@ -26,10 +26,10 @@ def path2tiosubject(data_path, label_path):
 
 
 def main():
-    mri_dir = '/Users/fuguanghui/Downloads/Dataset/LymphomaOri/MRI'
-    label_dir = '/Users/fuguanghui/Downloads/Dataset/LymphomaOri/label_LN'
-    mri_processed_save_dir = '/Users/fuguanghui/Downloads/Dataset/LymphomaCrop_new/MRI'
-    label_processed_save_dir = '/Users/fuguanghui/Downloads/Dataset/LymphomaCrop_new/label'
+    mri_dir = 'your/t1/weighted/lymphoma/MRI'
+    label_dir = 'your/t1/weighted/lymphoma/label'
+    mri_processed_save_dir = 'your/t1/weighted/lymphoma/process/MRI'
+    label_processed_save_dir = 'your/t1/weighted/lymphoma/process/label'
     os.makedirs(mri_processed_save_dir, exist_ok=True)
     os.makedirs(label_processed_save_dir, exist_ok=True)
     transform = data_transforms()
