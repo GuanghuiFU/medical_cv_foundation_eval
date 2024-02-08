@@ -27,6 +27,6 @@ select_t1gd.main(images_tr_path, images_tr_path)
 select_t1gd.main(images_ts_path, images_ts_path)
 
 print('***Binary label and get enhancing tumor...')
-# 2. Binary label. The enhancing tumor is selected as the segmentation target
+# 3. Binary label. The enhancing tumor is selected as the segmentation target
 binary_label.main(labels_tr_path, labels_tr_path)
 binary_label.main(labels_ts_path, labels_ts_path)
