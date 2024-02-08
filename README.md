@@ -93,7 +93,7 @@ The code to generate the boxes from ground truth is provided here:
 
 ## Support sets for Universeg
 
-The different support sets are given here:  [`brats_support_set.zip`](<https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/brats_support_set.zip>) 
+The different support sets are given here:  [`brats_support_set.zip`](<https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/universeg_experiment/brats_support_set.zip>) 
 
 The code to build the support sets:
 * [`universeg_experiment/universeg_select_support_set.py`](<https://github.com/GuanghuiFU/medical_cv_foundation_eval/blob/main/universeg_experiment/universeg_select_support_set.py>): this code offers strategies for selecting the support set, a crucial step in preparing data for the UniverSeg [2] model. It includes options to select slices based on their size (largest, smallest, or medium). 
