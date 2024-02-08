@@ -11,16 +11,9 @@ It contains:
 If you use this material, we would appreciate if you could cite the following reference.
 
 ## Citation
-* Guanghui Fu, Lucia Nichelli, Dario Herran, Romain Valabregue, Agusti Alentorn, Khê Hoang-Xuan, Caroline Houillier, Didier Dormont, Stéphane Lehéricy, Olivier Colliot. Comparing foundation models and nnU-Net for segmentation of primary brain lymphoma on clinical routine post-contrast T1-weighted MRI. Preprint.
+* Guanghui Fu, Lucia Nichelli, Dario Herran, Romain Valabregue, Agusti Alentorn, Khê Hoang-Xuan, Caroline Houillier, Didier Dormont, Stéphane Lehéricy, Olivier Colliot. Comparing foundation models and nnU-Net for segmentation of primary brain lymphoma on clinical routine post-contrast T1-weighted MRI. Preprint, https://hal.science/hal-04447318. 
 
-```
-@inproceedings{fu2024comparing,
-  title={Comparing foundation models and nnU-Net for segmentation of primary brain lymphoma on clinical routine post-contrast T1-weighted MRI},
-  author={Fu, Guanghui and Nichelli, Lucia and Herran, Dario and Valabregue, Romain and Alentorn, Agusti and Hoang-Xuan, Khê and Houillier, Caroline and Dormont, Didier and Leh{\'e}ricy, St{\'e}phane and Colliot, Olivier},
-  booktitle={Preprint},
-  year={2024}
-}
-```
+
 ## Download and install
 * **Install SAM repository:** `pip install git+https://github.com/facebookresearch/segment-anything.git`
 * **Install UniverSeg repository:** `pip install git+https://github.com/JJGO/UniverSeg.git`
